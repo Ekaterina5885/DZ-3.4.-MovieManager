@@ -76,6 +76,19 @@ public class MovieManagerTest {
         assertArrayEquals(expected, actual);
     }
 
+    // Выдать 1 фильм в ленту;
+    @Test
+    public void shouldGetOneMovie() {
+
+        MovieManager manager = new MovieManager(1);
+        manager.addMovies(tenthMovie);
+
+        MovieList[] expected = new MovieList[]{tenthMovie};
+        MovieList[] actual = manager.getMovies();
+
+        assertArrayEquals(expected, actual);
+    }
+
     // Выдать фильмы в ленту ниже граничного значения;
     @Test
     public void shouldGetMoviesBelowMinimum() {
