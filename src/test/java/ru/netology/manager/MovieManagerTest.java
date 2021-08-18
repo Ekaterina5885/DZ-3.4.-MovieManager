@@ -17,6 +17,7 @@ public class MovieManagerTest {
     private final MovieList eighthMovie = new MovieList(8, "MovieTitle-8", "comedy");
     private final MovieList ninthMovie = new MovieList(9, "MovieTitle-9", "comedy");
     private final MovieList tenthMovie = new MovieList(10, "MovieTitle-10", "comedy");
+    private final MovieList elevenMovie = new MovieList(11, "MovieTitle-11", "comedy");
 
 
     // Выдать 10 фильмов в ленту;
@@ -96,6 +97,30 @@ public class MovieManagerTest {
         MovieManager manager = new MovieManager(-1);
 
         MovieList[] expected = new MovieList[]{};
+        MovieList[] actual = manager.getMovies();
+
+        assertArrayEquals(expected, actual);
+    }
+
+    // Выдать 11 фильмов в ленту;
+    @Test
+    public void shouldGetAboveLimitMovies() {
+
+        MovieManager manager = new MovieManager(11);
+        manager.addMovies(firstMovie);
+        manager.addMovies(secondMovie);
+        manager.addMovies(thirdMovie);
+        manager.addMovies(fourthMovie);
+        manager.addMovies(fifthMovie);
+        manager.addMovies(sixthMovie);
+        manager.addMovies(seventhMovie);
+        manager.addMovies(eighthMovie);
+        manager.addMovies(ninthMovie);
+        manager.addMovies(tenthMovie);
+        manager.addMovies(elevenMovie);
+
+        MovieList[] expected = new MovieList[]{elevenMovie, tenthMovie, ninthMovie, eighthMovie, seventhMovie,
+                sixthMovie, fifthMovie, fourthMovie, thirdMovie, secondMovie, firstMovie};
         MovieList[] actual = manager.getMovies();
 
         assertArrayEquals(expected, actual);
