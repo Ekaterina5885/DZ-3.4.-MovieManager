@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MovieManagerTest {
-    private MovieManager manager = new MovieManager();
+    private final MovieManager manager = new MovieManager();
     private final MovieList firstMovie = new MovieList(1, "MovieTitle-1", "thriller");
     private final MovieList secondMovie = new MovieList(2, "MovieTitle-2", "cartoon");
     private final MovieList thirdMovie = new MovieList(3, "MovieTitle-3", "comedy");
