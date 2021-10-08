@@ -1,6 +1,5 @@
 package ru.netology.manager;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.netology.domain.MovieList;
 
@@ -19,8 +18,12 @@ public class MovieManagerTestTwo {
     private final MovieList ninthMovie = new MovieList(9, "MovieTitle-9", "comedy");
     private final MovieList tenthMovie = new MovieList(10, "MovieTitle-10", "comedy");
 
-    @BeforeEach
-    public void setup() {
+
+    // Выдать 1 фильм в ленту;
+    @Test
+    public void shouldGetOneMovie() {
+        MovieManager manager = new MovieManager(1);
+
         manager.addMovies(firstMovie);
         manager.addMovies(secondMovie);
         manager.addMovies(thirdMovie);
@@ -31,14 +34,56 @@ public class MovieManagerTestTwo {
         manager.addMovies(eighthMovie);
         manager.addMovies(ninthMovie);
         manager.addMovies(tenthMovie);
+
+        MovieList[] expected = new MovieList[]{tenthMovie};
+        MovieList[] actual = manager.getMovies();
+
+        assertArrayEquals(expected, actual);
     }
 
-    // Получение последних фильмов;
+    // Выдать в ленту 9 фильмов;
     @Test
-    public void shouldShowLatestMovies() {
+    public void shouldGetMoviesBelowLimitValue() {
 
-        MovieList[] expected = new MovieList[]{tenthMovie, ninthMovie, eighthMovie, seventhMovie, sixthMovie, fifthMovie, fourthMovie,
-                thirdMovie, secondMovie, firstMovie};
+        MovieManager manager = new MovieManager(9);
+
+        manager.addMovies(firstMovie);
+        manager.addMovies(secondMovie);
+        manager.addMovies(thirdMovie);
+        manager.addMovies(fourthMovie);
+        manager.addMovies(fifthMovie);
+        manager.addMovies(sixthMovie);
+        manager.addMovies(seventhMovie);
+        manager.addMovies(eighthMovie);
+        manager.addMovies(ninthMovie);
+        manager.addMovies(tenthMovie);
+
+        MovieList[] expected = new MovieList[]{tenthMovie, ninthMovie, eighthMovie, seventhMovie,
+                sixthMovie, fifthMovie, fourthMovie, thirdMovie, secondMovie};
+        MovieList[] actual = manager.getMovies();
+
+        assertArrayEquals(expected, actual);
+    }
+
+    // Выдать 10 фильмов в ленту;
+    @Test
+    public void shouldGetLimitMovies() {
+
+        MovieManager manager = new MovieManager(10);
+
+        manager.addMovies(firstMovie);
+        manager.addMovies(secondMovie);
+        manager.addMovies(thirdMovie);
+        manager.addMovies(fourthMovie);
+        manager.addMovies(fifthMovie);
+        manager.addMovies(sixthMovie);
+        manager.addMovies(seventhMovie);
+        manager.addMovies(eighthMovie);
+        manager.addMovies(ninthMovie);
+        manager.addMovies(tenthMovie);
+
+        MovieList[] expected = new MovieList[]{tenthMovie, ninthMovie, eighthMovie, seventhMovie,
+                sixthMovie, fifthMovie, fourthMovie, thirdMovie, secondMovie, firstMovie};
         MovieList[] actual = manager.getMovies();
 
         assertArrayEquals(expected, actual);

@@ -1,10 +1,10 @@
 package ru.netology.manager;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.netology.domain.MovieList;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MovieManagerTest {
     private final MovieManager manager = new MovieManager();
@@ -19,12 +19,8 @@ public class MovieManagerTest {
     private final MovieList ninthMovie = new MovieList(9, "MovieTitle-9", "comedy");
     private final MovieList tenthMovie = new MovieList(10, "MovieTitle-10", "comedy");
 
-
-    // Выдать 10 фильмов в ленту;
-    @Test
-    public void shouldGetLimitMovies() {
-
-        MovieManager manager = new MovieManager(10);
+    @BeforeEach
+    public void setup() {
         manager.addMovies(firstMovie);
         manager.addMovies(secondMovie);
         manager.addMovies(thirdMovie);
@@ -35,34 +31,6 @@ public class MovieManagerTest {
         manager.addMovies(eighthMovie);
         manager.addMovies(ninthMovie);
         manager.addMovies(tenthMovie);
-
-        MovieList[] expected = new MovieList[]{tenthMovie, ninthMovie, eighthMovie, seventhMovie,
-                sixthMovie, fifthMovie, fourthMovie, thirdMovie, secondMovie, firstMovie};
-        MovieList[] actual = manager.getMovies();
-
-        assertArrayEquals(expected, actual);
-    }
-
-    // Выдать в ленту 9 фильмов;
-    @Test
-    public void shouldGetMoviesBelowLimitValue() {
-        MovieManager manager = new MovieManager(9);
-
-        manager.addMovies(firstMovie);
-        manager.addMovies(secondMovie);
-        manager.addMovies(thirdMovie);
-        manager.addMovies(fourthMovie);
-        manager.addMovies(fifthMovie);
-        manager.addMovies(sixthMovie);
-        manager.addMovies(seventhMovie);
-        manager.addMovies(eighthMovie);
-        manager.addMovies(ninthMovie);
-
-        MovieList[] expected = new MovieList[]{ninthMovie, eighthMovie, seventhMovie,
-                sixthMovie, fifthMovie, fourthMovie, thirdMovie, secondMovie, firstMovie};
-        MovieList[] actual = manager.getMovies();
-
-        assertArrayEquals(expected, actual);
     }
 
     // Выдать 0 фильмов в ленту;
@@ -77,26 +45,14 @@ public class MovieManagerTest {
         assertArrayEquals(expected, actual);
     }
 
-    // Выдать 1 фильм в ленту;
-    @Test
-    public void shouldGetOneMovie() {
-
-        MovieManager manager = new MovieManager(1);
-        manager.addMovies(tenthMovie);
-
-        MovieList[] expected = new MovieList[]{tenthMovie};
-        MovieList[] actual = manager.getMovies();
-
-        assertArrayEquals(expected, actual);
-    }
-
-    // Выдать фильмы в ленту ниже граничного значения;
+    // Выдать -1 фильм в ленту;
     @Test
     public void shouldGetMoviesBelowMinimum() {
 
-        MovieManager manager = new MovieManager(-1);
+        manager.setQuantityMovies(-1);
 
-        MovieList[] expected = new MovieList[]{};
+        MovieList[] expected = new MovieList[]{tenthMovie, ninthMovie, eighthMovie, seventhMovie,
+                sixthMovie, fifthMovie, fourthMovie, thirdMovie, secondMovie, firstMovie};
         MovieList[] actual = manager.getMovies();
 
         assertArrayEquals(expected, actual);
@@ -106,7 +62,12 @@ public class MovieManagerTest {
     @Test
     public void shouldGetAboveLimitMovies() {
 
-        MovieManager manager = new MovieManager(15);
-        assertEquals(15, manager.getQuantityMovies());
+        manager.setQuantityMovies(15);
+
+        MovieList[] expected = new MovieList[]{tenthMovie, ninthMovie, eighthMovie, seventhMovie,
+                sixthMovie, fifthMovie, fourthMovie, thirdMovie, secondMovie, firstMovie};
+        MovieList[] actual = manager.getMovies();
+
+        assertArrayEquals(expected, actual);
     }
 }

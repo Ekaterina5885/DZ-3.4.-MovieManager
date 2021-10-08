@@ -14,6 +14,13 @@ public class MovieManager {
         this.quantityMovies = quantityMovies;
     }
 
+    public void setQuantityMovies(int quantityMovies){
+        if (quantityMovies < 0){
+            return;
+        }
+        this.quantityMovies = quantityMovies;
+    }
+
 // Добавить фильмы;
 
     public void addMovies(MovieList item) {
@@ -30,7 +37,7 @@ public class MovieManager {
 
     public MovieList[] getMovies() {
         int resultLength;
-        if (movies.length < quantityMovies) {
+        if (movies.length > quantityMovies) {
             resultLength = quantityMovies;
         } else {
             resultLength = movies.length;
